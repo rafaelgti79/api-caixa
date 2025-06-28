@@ -1,1 +1,4 @@
 /node_modules
+echo "src/database/banco.db" >> .gitignore
+git rm --cached src/database/banco.db
+git commit -m "Remove banco.db do controle de versão"
