@@ -23,7 +23,19 @@ const listarDinheiro = () => {
   });
 };
 
+const marcarDinheiroComoFechado = (id) => {
+  return new Promise((resolve, reject) => {
+    const query = `UPDATE dinheiro SET fechado = 1 WHERE id = ?`;
+    db.run(query, [id], function (err) {
+      if (err) return reject(err);
+      resolve({ success: true });
+    });
+  });
+};
+
+
 export default {
   criarDinheiro,
-  listarDinheiro
+  listarDinheiro,
+  marcarDinheiroComoFechado
 };

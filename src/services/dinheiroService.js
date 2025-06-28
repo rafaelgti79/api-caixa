@@ -14,7 +14,13 @@ const listarDinheiro = async () => {
   return dinheiroRepository.listarDinheiro();
 };
 
+const marcarDinheiroComoFechado = async (id) => {
+  return dinheiroRepository.marcarDinheiroComoFechado(id);
+};
+
+
 export default {
   criarDinheiro,
-  listarDinheiro
+  listarDinheiro,
+  marcarDinheiroComoFechado
 };

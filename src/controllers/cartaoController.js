@@ -19,7 +19,19 @@ const listarCartoes = async (req, res) => {
   }
 };
 
+const marcarComoFechado = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await cartaoService.marcarCartaoComoFechado(id);
+    res.status(200).json({ message: 'Cartão marcado como fechado.' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
 export default {
   criarCartao,
   listarCartoes,
+  marcarComoFechado
 };

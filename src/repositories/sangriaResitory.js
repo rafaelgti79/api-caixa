@@ -23,7 +23,19 @@ const listarSangria = () => {
   });
 };
 
+const marcarSangriaComoFechada = (id) => {
+  return new Promise((resolve, reject) => {
+    const query = `UPDATE sangria SET fechado = 1 WHERE id = ?`;
+    db.run(query, [id], function (err) {
+      if (err) return reject(err);
+      resolve({ success: true });
+    });
+  });
+};
+
+
 export default {
   criarSangria,
-  listarSangria
+  listarSangria,
+  marcarSangriaComoFechada
 };

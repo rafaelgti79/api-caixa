@@ -14,7 +14,13 @@ const listarReforco = async () => {
   return reforcoRepository.listarReforco();
 };
 
+const marcarReforcoComoFechado = async (id) => {
+  return reforcoRepository.marcarReforcoComoFechado(id);
+};
+
+
 export default {
   criarReforco,
-  listarReforco
+  listarReforco,
+  marcarReforcoComoFechado
 };

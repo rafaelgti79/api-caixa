@@ -20,7 +20,19 @@ const listarCartoes = () => {
   });
 };
 
+const marcarCartaoComoFechado = (id) => {
+  return new Promise((resolve, reject) => {
+    const query = `UPDATE cartao SET fechado = 1 WHERE id = ?`;
+    db.run(query, [id], function (err) {
+      if (err) return reject(err);
+      resolve({ success: true });
+    });
+  });
+};
+
+
 export default {
   criarCartao,
   listarCartoes,
+  marcarCartaoComoFechado
 };

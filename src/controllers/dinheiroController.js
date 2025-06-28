@@ -20,7 +20,19 @@ const listarDinheiro = async (req, res) => {
   }
 };
 
+const marcarComoFechado = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await dinheiroService.marcarDinheiroComoFechado(id);
+    res.status(200).json({ message: 'Dinheiro marcado como fechado.' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
 export default {
   criarDinheiro,
-  listarDinheiro
+  listarDinheiro,
+  marcarComoFechado
 };

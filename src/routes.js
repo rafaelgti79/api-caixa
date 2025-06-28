@@ -29,6 +29,8 @@ router.delete("/conta/:id", controllerUser.deletarConta);
 router.post("/cartao", cartaoController.criarCartao);
 router.get("/cartao", cartaoController.listarCartoes);
 router.delete('/cartao/:id', fecharEndPoints.deletarCartao);
+router.patch('/cartao/:id', cartaoController.marcarComoFechado);
+
 
 
 //Lojas
@@ -59,29 +61,39 @@ router.post('/historicocaixa', historicoCaixaController.salvarHistorico);
 router.post('/fecharmaquinas', fechamentoController.registrarFechamento);
 router.get('/fecharmaquinas', fechamentoController.listarFechamentos);
 router.delete('/fecharmaquinas/:id', fecharMaquinasController.deletar);
+ router.patch('/fecharmaquinas/:id', fechamentoController.marcarComoFechado);
+
 
 //Despesas
 router.post('/despesas', despesaController.criarDespesa);
 router.get('/despesas', despesaController.listarDespesas);
 router.delete('/despesas/:id', fecharEndPoints.deletarDespesas);
+router.patch('/despesas/:id', despesaController.marcarComoFechado);
+
 
 
 //Reforco
 router.post('/reforco', reforcoController.criarReforco);
 router.get('/reforco', reforcoController.listarReforco);
 router.delete('/reforco/:id', fecharEndPoints.deletarReforco);
+router.patch('/reforco/:id', reforcoController.marcarComoFechado);
+
 
 
 //Dinheiro
 router.post('/dinheiro', dinheiroController.criarDinheiro);
 router.get('/dinheiro', dinheiroController.listarDinheiro);
 router.delete('/dinheiro/:id', fecharEndPoints.deletarDinheiro);
+router.patch('/dinheiro/:id', dinheiroController.marcarComoFechado);
+
 
 
 //Sangria
 router.post('/sangria', sangriaController.criarSangria);
 router.get('/sangria', sangriaController.listarSangria);
 router.delete('/sangria/:id', fecharEndPoints.deletarSangrias);
+router.patch('/sangria/:id', sangriaController.marcarComoFechado);
+
 
 
 

@@ -45,6 +45,16 @@ const salvarFechamento = ({
   });
 };
 
+const marcarFechamentoComoFechado = (id) => {
+  return new Promise((resolve, reject) => {
+    const query = `UPDATE fecharmaquinas SET fechado = 1 WHERE id = ?`;
+    db.run(query, [id], function (err) {
+      if (err) return reject(err);
+      resolve({ success: true, id });
+    });
+  });
+};
+
 const getAllFechamentos = () => {
   return new Promise((resolve, reject) => {
     db.all('SELECT * FROM fecharmaquinas ORDER BY id DESC', [], (err, rows) => {
@@ -56,5 +66,6 @@ const getAllFechamentos = () => {
 
 export default {
   salvarFechamento,
+  marcarFechamentoComoFechado,
   getAllFechamentos
 };

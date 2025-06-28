@@ -28,11 +28,24 @@ const registrarFechamento = async (data) => {
   });
 };
 
+const fecharTodos = async () => {
+  const fechamentos = await fechamentoRepository.getAllFechamentos();
+  for (const fechamento of fechamentos) {
+    await fechamentoRepository.marcarFechamentoComoFechado(fechamento.id);
+  }
+};
+
 const listarFechamentos = async () => {
   return fechamentoRepository.getAllFechamentos();
 };
 
+const marcarFechamentoComoFechado = async (id) => {
+  return fechamentoRepository.marcarFechamentoComoFechado(id);
+};
+
 export default {
   registrarFechamento,
-  listarFechamentos
+  fecharTodos,
+  listarFechamentos,
+  marcarFechamentoComoFechado
 };

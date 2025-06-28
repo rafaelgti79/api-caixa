@@ -20,7 +20,28 @@ const listarDespesas = async (req, res) => {
   }
 };
 
+const fecharTodas = async (req, res) => {
+  try {
+    await despesaService.fecharTodasDespesas();
+    res.status(200).json({ message: 'Despesas fechadas com sucesso.' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+const marcarComoFechado = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await despesaService.marcarDespesaComoFechada(id);
+    res.status(200).json({ message: 'Despesa marcada como fechada.' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 export default {
   criarDespesa,
-  listarDespesas
+  listarDespesas,
+  fecharTodas,
+  marcarComoFechado
 };

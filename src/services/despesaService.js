@@ -14,7 +14,21 @@ const listarDespesas = async () => {
   return despesaRepository.listarDespesas();
 };
 
+const fecharTodasDespesas = async () => {
+  const despesas = await despesaRepository.listarDespesas();
+  for (const despesa of despesas) {
+    await despesaRepository.marcarDespesaComoFechada(despesa.id);
+  }
+};
+
+const marcarDespesaComoFechada = async (id) => {
+  return despesaRepository.marcarDespesaComoFechada(id);
+};
+
+
 export default {
   criarDespesa,
-  listarDespesas
+  fecharTodasDespesas,
+  listarDespesas,
+  marcarDespesaComoFechada
 };

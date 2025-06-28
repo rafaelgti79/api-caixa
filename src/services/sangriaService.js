@@ -13,7 +13,13 @@ const listarSangria = async () => {
   return await sangriaRepository.listarSangria();
 };
 
+const marcarSangriaComoFechada = async (id) => {
+  return sangriaRepository.marcarSangriaComoFechada(id);
+};
+
+
 export default {
   criarSangria,
   listarSangria,
+  marcarSangriaComoFechada
 };

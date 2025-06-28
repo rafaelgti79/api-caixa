@@ -20,7 +20,19 @@ const listarReforco = async (req, res) => {
   }
 };
 
+const marcarComoFechado = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await reforcoService.marcarReforcoComoFechado(id);
+    res.status(200).json({ message: 'Reforço marcado como fechado.' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
 export default {
   criarReforco,
-  listarReforco
+  listarReforco,
+  marcarComoFechado
 };

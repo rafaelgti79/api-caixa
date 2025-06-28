@@ -11,6 +11,17 @@ const registrarFechamento = async (req, res) => {
   }
 };
 
+const marcarComoFechado = async (req, res) => {
+  try {
+    const id = req.params.id;
+    await fechamentoService.marcarFechamentoComoFechado(id);
+    res.status(200).json({ message: 'Fechamento marcado como fechado.' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
 const listarFechamentos = async (req, res) => {
   try {
     const fechamentos = await fechamentoService.listarFechamentos();
@@ -23,5 +34,6 @@ const listarFechamentos = async (req, res) => {
 
 export default {
   registrarFechamento,
+  marcarComoFechado,
   listarFechamentos
 };

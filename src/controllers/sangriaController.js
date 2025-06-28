@@ -20,7 +20,19 @@ const listarSangria = async (req, res) => {
   }
 };
 
+const marcarComoFechado = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await sangriaService.marcarSangriaComoFechada(id);
+    res.status(200).json({ message: 'Sangria marcada como fechada.' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
 export default {
   criarSangria,
-  listarSangria
+  listarSangria,
+  marcarComoFechado
 };

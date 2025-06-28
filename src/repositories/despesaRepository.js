@@ -23,7 +23,19 @@ const listarDespesas = () => {
   });
 };
 
+const marcarDespesaComoFechada = (id) => {
+  return new Promise((resolve, reject) => {
+    const query = `UPDATE despesas SET fechado = 1 WHERE id = ?`;
+    db.run(query, [id], function (err) {
+      if (err) return reject(err);
+      resolve({ success: true });
+    });
+  });
+};
+
+
 export default {
   criarDespesa,
+  marcarDespesaComoFechada,
   listarDespesas
 };

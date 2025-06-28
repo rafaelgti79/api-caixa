@@ -13,7 +13,13 @@ const listarCartoes = async () => {
   return await cartaoRepository.listarCartoes();
 };
 
+const marcarCartaoComoFechado = async (id) => {
+  return cartaoRepository.marcarCartaoComoFechado(id);
+};
+
+
 export default {
   criarCartao,
   listarCartoes,
+  marcarCartaoComoFechado
 };
