@@ -45,10 +45,7 @@ router.get("/jogos", jogosController.listarJogos);
 router.post("/maquinas", maquinasController.criarMaquina);
 router.get("/maquinas", maquinasController.listarMaquinas);
 router.put("/maquinas/:id", maquinasController.atualizarMaquina);
-// Fechar Máquinas
-router.post('/fecharmaquinas', fechamentoController.registrarFechamento);
-router.get('/fecharmaquinas', fechamentoController.listarFechamentos);
-router.patch('/fecharmaquinas/:id', fechamentoController.marcarComoFechado);
+
 
 
 //Historico Caixa
