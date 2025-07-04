@@ -62,7 +62,11 @@ router.post('/historicocaixa', historicoCaixaController.salvarHistorico);
 router.post('/fecharmaquinas', fechamentoController.registrarFechamento);
 router.get('/fecharmaquinas', fechamentoController.listarFechamentos);
 router.delete('/fecharmaquinas/:id', fecharMaquinasController.deletar);
- router.patch('/fecharmaquinas/:id', fechamentoController.marcarComoFechado);
+router.patch('/fecharmaquinas/:id', fechamentoController.marcarComoFechado);
+router.patch('/fecharmaquinas/atualizar/:id', fechamentoController.atualizarFechamentoCompleto);
+
+
+
 
 
 //Despesas
@@ -70,7 +74,6 @@ router.post('/despesas', despesaController.criarDespesa);
 router.get('/despesas', despesaController.listarDespesas);
 router.delete('/despesas/:id', fecharEndPoints.deletarDespesas);
 router.patch('/despesas/:id', despesaController.marcarComoFechado);
-
 
 
 //Reforco

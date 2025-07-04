@@ -4,7 +4,8 @@ import fechamentoService from '../services/fechamentoService.js';
 const registrarFechamento = async (req, res) => {
   try {
     const dados = req.body;
-    const resultado = await fechamentoService.registrarFechamento(dados);
+   const resultado = await fechamentoService.registrarFechamento(dados);
+
     res.status(201).json({ message: 'Fechamento salvo com sucesso', resultado });
   } catch (err) {
     console.error('Erro ao registrar fechamento:', err);
@@ -32,11 +33,26 @@ const listarFechamentos = async (req, res) => {
   }
 };
 
+const atualizarFechamentoCompleto = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const dados = req.body;
+    const atualizado = await fechamentoService.atualizarFechamento(id, dados);
+    res.status(200).json({ message: 'Fechamento atualizado com sucesso', atualizado });
+  } catch (err) {
+    console.error('Erro ao atualizar fechamento:', err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
 export default {
   registrarFechamento,
   marcarComoFechado,
-  listarFechamentos
+  listarFechamentos,
+  atualizarFechamentoCompleto
 };
+
 
 
 /*
