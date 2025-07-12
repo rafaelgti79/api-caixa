@@ -12,7 +12,8 @@ const criarSangria = async (req, res) => {
 
 const listarSangria = async (req, res) => {
   try {
-    const sangria = await sangriaService.listarSangria();
+    const { caixaId } = req.query;
+    const sangria = await sangriaService.listarSangria(caixaId);
     res.json(sangria);
   } catch (err) {
     console.error('Erro ao listar sangria:', err);
@@ -29,7 +30,6 @@ const marcarComoFechado = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-
 
 export default {
   criarSangria,

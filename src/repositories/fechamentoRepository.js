@@ -27,24 +27,25 @@ const salvarFechamento = ({
   usuario,
   usuarioId,
   dataHora,
-  fechado = false
+  fechado = false,
+  caixaId = null     // <--- novo campo
 }) => {
   return new Promise((resolve, reject) => {
     const query = `
       INSERT INTO fecharmaquinas (
         maquinaId, maquina, entradaInicial, entradaFinal,
         saidaInicial, saidaFinal, resultado,
-        usuario, usuarioId, dataHora, fechado
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        usuario, usuarioId, dataHora, fechado, caixaId
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
-    db.run(query, [maquinaId, maquina, entradaInicial, entradaFinal, saidaInicial, saidaFinal, resultado, usuario, usuarioId, dataHora, fechado],
+    db.run(query, [maquinaId, maquina, entradaInicial, entradaFinal, saidaInicial, saidaFinal, resultado, usuario, usuarioId, dataHora, fechado, caixaId],
       function (err) {
         if (err) return reject(err);
         resolve({
           id: this.lastID,
           maquinaId, maquina, entradaInicial, entradaFinal,
           saidaInicial, saidaFinal, resultado,
-          usuario, usuarioId, dataHora, fechado
+          usuario, usuarioId, dataHora, fechado, caixaId
         });
       }
     );
@@ -60,7 +61,8 @@ const atualizarFechamento = (id, dados) => {
     saidaFinal = null,
     resultado = null,
     usuarioId,
-    dataHora
+    dataHora,
+    caixaId = null      // <--- novo campo
   } = dados;
 
   return new Promise((resolve, reject) => {
@@ -68,11 +70,11 @@ const atualizarFechamento = (id, dados) => {
       UPDATE fecharmaquinas
       SET maquina = ?, entradaInicial = ?, entradaFinal = ?,
           saidaInicial = ?, saidaFinal = ?, resultado = ?,
-          usuarioId = ?, dataHora = ?
+          usuarioId = ?, dataHora = ?, caixaId = ?
       WHERE id = ?
     `;
     db.run(query,
-      [maquina, entradaInicial, entradaFinal, saidaInicial, saidaFinal, resultado, usuarioId, dataHora, id],
+      [maquina, entradaInicial, entradaFinal, saidaInicial, saidaFinal, resultado, usuarioId, dataHora, caixaId, id],
       function (err) {
         if (err) reject(err);
         else resolve({ id, ...dados });

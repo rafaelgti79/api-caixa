@@ -19,10 +19,5 @@ const atualizarMaquina = async (id, campos) => {
 };
 
 
-/*
-const listarMaquinas = async () => {
-  return await maquinasRepository.listarMaquinas();
-};
-*/
 
 export default { criarMaquina, listarMaquinas,atualizarMaquina };

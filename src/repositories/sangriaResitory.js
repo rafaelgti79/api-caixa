@@ -1,22 +1,32 @@
 // src/repositories/despesaRepository.js
 import { db } from '../database/sqlite.js';
 
-const criarSangria = ({ descricao, valor, nome, loja, usuario, data  }) => {
+const criarSangria = ({ descricao, valor, nome, loja, usuario, data, caixaId }) => {
   return new Promise((resolve, reject) => {
     const sql = `
-      INSERT INTO sangria (descricao, valor, nome, loja, usuario, data )
-      VALUES (?, ?, ?, ?, ?, ?)
+      INSERT INTO sangria (descricao, valor, nome, loja, usuario, data, caixaId)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
-    db.run(sql, [descricao, valor, nome, loja, usuario, data ], function (err) {
+    db.run(sql, [descricao, valor, nome, loja, usuario, data, caixaId], function (err) {
       if (err) return reject(err);
-      resolve({ id: this.lastID, descricao, valor, nome, loja, usuario, data  });
+      resolve({ id: this.lastID, descricao, valor, nome, loja, usuario, data, caixaId });
     });
   });
 };
 
-const listarSangria = () => {
+const listarSangria = (caixaId = null) => {
   return new Promise((resolve, reject) => {
-    db.all('SELECT * FROM sangria ORDER BY id DESC', [], (err, rows) => {
+    let query = 'SELECT * FROM sangria';
+    const params = [];
+
+    if (caixaId) {
+      query += ' WHERE caixaId = ? ORDER BY id DESC';
+      params.push(caixaId);
+    } else {
+      query += ' ORDER BY id DESC';
+    }
+
+    db.all(query, params, (err, rows) => {
       if (err) return reject(err);
       resolve(rows);
     });
@@ -32,6 +42,7 @@ const marcarSangriaComoFechada = (id) => {
     });
   });
 };
+
 
 
 export default {

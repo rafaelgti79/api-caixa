@@ -1,17 +1,18 @@
 // src/services/cartaoService.js
 import sangriaRepository from "../repositories/sangriaResitory.js";
 
-const criarSangria = async ({ descricao, valor, nome, loja, usuario, data }) => {
-  // Validação simples
-  if (descricao == null || valor == null || nome == null || loja == null || usuario == null || data == null) {
-    throw new Error("Todos os campos são obrigatórios");
+const criarSangria = async ({ descricao, valor, nome, loja, usuario, data, caixaId }) => {
+  if (!descricao || !valor || !nome || !loja || !usuario || !data || !caixaId) {
+    throw new Error("Todos os campos são obrigatórios, incluindo caixaId");
   }
-  return await sangriaRepository.criarSangria({descricao, valor, nome, loja, usuario, data });
+
+  return await sangriaRepository.criarSangria({ descricao, valor, nome, loja, usuario, data, caixaId });
 };
 
-const listarSangria = async () => {
-  return await sangriaRepository.listarSangria();
+const listarSangria = async (caixaId) => {
+  return await sangriaRepository.listarSangria(caixaId);
 };
+
 
 const marcarSangriaComoFechada = async (id) => {
   return sangriaRepository.marcarSangriaComoFechada(id);

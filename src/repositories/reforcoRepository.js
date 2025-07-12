@@ -1,27 +1,39 @@
 // src/repositories/despesaRepository.js
 import { db } from '../database/sqlite.js';
 
-const criarReforco = ({ valor, usuario, data }) => {
+const criarReforco = ({ valor, usuario, data, caixaId }) => {
   return new Promise((resolve, reject) => {
     const sql = `
-      INSERT INTO reforco (valor, usuario, data)
-      VALUES (?, ?, ?)
+      INSERT INTO reforco (valor, usuario, data, caixaId)
+      VALUES (?, ?, ?, ?)
     `;
-    db.run(sql, [valor, usuario, data], function (err) {
+    db.run(sql, [valor, usuario, data, caixaId], function (err) {
       if (err) return reject(err);
-      resolve({ id: this.lastID, valor, usuario, data });
+      resolve({ id: this.lastID, valor, usuario, data, caixaId });
     });
   });
 };
 
-const listarReforco = () => {
+
+const listarReforco = (caixaId = null) => {
   return new Promise((resolve, reject) => {
-    db.all('SELECT * FROM reforco ORDER BY id DESC', [], (err, rows) => {
+    let sql = 'SELECT * FROM reforco';
+    const params = [];
+
+    if (caixaId) {
+      sql += ' WHERE caixaId = ?';
+      params.push(caixaId);
+    }
+
+    sql += ' ORDER BY id DESC';
+
+    db.all(sql, params, (err, rows) => {
       if (err) return reject(err);
       resolve(rows);
     });
   });
 };
+
 
 const marcarReforcoComoFechado = (id) => {
   return new Promise((resolve, reject) => {

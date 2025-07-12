@@ -1,24 +1,37 @@
 // src/repositories/cartaoRepository.js
 import { db } from "../database/sqlite.js";
 
-const criarCartao = ({ valor, tipo, usuario, data }) => {
+const criarCartao = ({ valor, tipo, usuario, data, caixaId }) => {
   return new Promise((resolve, reject) => {
-    const sql = `INSERT INTO cartao (valor, tipo, usuario, data) VALUES (?, ?, ?, ?)`;
-    db.run(sql, [valor, tipo, usuario, data], function (err) {
-      if (err) reject(err);
-      else resolve({ id: this.lastID, valor, tipo, usuario, data });
+    const sql = `
+      INSERT INTO cartao (valor, tipo, usuario, data, caixaId)
+      VALUES (?, ?, ?, ?, ?)
+    `;
+    db.run(sql, [valor, tipo, usuario, data, caixaId], function (err) {
+      if (err) return reject(err);
+      resolve({ id: this.lastID, valor, tipo, usuario, data, caixaId });
     });
   });
 };
 
-const listarCartoes = () => {
+
+const listarCartoes = (caixaId = null) => {
   return new Promise((resolve, reject) => {
-    db.all("SELECT * FROM cartao", [], (err, rows) => {
+    let sql = "SELECT * FROM cartao";
+    const params = [];
+
+    if (caixaId !== null) {
+      sql += " WHERE caixaId = ?";
+      params.push(caixaId);
+    }
+
+    db.all(sql, params, (err, rows) => {
       if (err) reject(err);
       else resolve(rows);
     });
   });
 };
+
 
 const marcarCartaoComoFechado = (id) => {
   return new Promise((resolve, reject) => {

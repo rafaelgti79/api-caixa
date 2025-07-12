@@ -12,13 +12,15 @@ const criarReforco = async (req, res) => {
 
 const listarReforco = async (req, res) => {
   try {
-    const reforco = await reforcoService.listarReforco();
-    res.json(reforco);
+    const { caixaId } = req.query;
+    const reforcos = await reforcoService.listarReforco(caixaId);
+    res.json(reforcos);
   } catch (err) {
     console.error('Erro ao listar reforco:', err);
     res.status(500).json({ error: err.message });
   }
 };
+
 
 const marcarComoFechado = async (req, res) => {
   try {

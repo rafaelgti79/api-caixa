@@ -66,9 +66,6 @@ router.patch('/fecharmaquinas/:id', fechamentoController.marcarComoFechado);
 router.patch('/fecharmaquinas/atualizar/:id', fechamentoController.atualizarFechamentoCompleto);
 
 
-
-
-
 //Despesas
 router.post('/despesas', despesaController.criarDespesa);
 router.get('/despesas', despesaController.listarDespesas);

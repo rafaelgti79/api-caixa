@@ -12,12 +12,14 @@ const criarCartao = async (req, res) => {
 
 const listarCartoes = async (req, res) => {
   try {
-    const cartoes = await cartaoService.listarCartoes();
+    const caixaId = req.query.caixaId || null;
+    const cartoes = await cartaoService.listarCartoes(caixaId);
     res.json(cartoes);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 const marcarComoFechado = async (req, res) => {
   try {

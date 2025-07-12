@@ -12,7 +12,8 @@ const criarDinheiro = async (req, res) => {
 
 const listarDinheiro = async (req, res) => {
   try {
-    const dinheiro = await dinheiroService.listarDinheiro();
+    const caixaId = req.query.caixaId;
+    const dinheiro = await dinheiroService.listarDinheiro(caixaId);
     res.json(dinheiro);
   } catch (err) {
     console.error('Erro ao listar dinheiro:', err);

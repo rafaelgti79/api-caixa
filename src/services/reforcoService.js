@@ -1,18 +1,19 @@
 import reforcoRepository from "../repositories/reforcoRepository.js";
 
 const criarReforco = async (dados) => {
-  const { valor, usuario, data } = dados;
+  const { valor, usuario, data, caixaId } = dados;
 
-  if (!valor || !usuario || !data ) {
-    throw new Error('Todos os campos são obrigatórios');
+  if (!valor || !usuario || !data || !caixaId) {
+    throw new Error('Valor, usuário, data e caixaId são obrigatórios');
   }
 
-  return reforcoRepository.criarReforco({ valor, usuario, data});
+  return reforcoRepository.criarReforco({ valor, usuario, data, caixaId });
 };
 
-const listarReforco = async () => {
-  return reforcoRepository.listarReforco();
+const listarReforco = async (caixaId = null) => {
+  return reforcoRepository.listarReforco(caixaId);
 };
+
 
 const marcarReforcoComoFechado = async (id) => {
   return reforcoRepository.marcarReforcoComoFechado(id);

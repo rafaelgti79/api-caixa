@@ -1,18 +1,19 @@
 // src/repositories/despesaRepository.js
 import { db } from '../database/sqlite.js';
 
-const criarDespesa = ({ descricao, valor, categoria, loja, usuario, data }) => {
+const criarDespesa = ({ descricao, valor, categoria, loja, usuario, data, caixaId }) => {
   return new Promise((resolve, reject) => {
     const sql = `
-      INSERT INTO despesas (descricao, valor, categoria, loja, usuario, data)
-      VALUES (?, ?, ?, ?, ?, ?)
+      INSERT INTO despesas (descricao, valor, categoria, loja, usuario, data, caixaId)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
-    db.run(sql, [descricao, valor, categoria, loja, usuario, data], function (err) {
+    db.run(sql, [descricao, valor, categoria, loja, usuario, data, caixaId], function (err) {
       if (err) return reject(err);
-      resolve({ id: this.lastID, descricao, valor, categoria, loja, usuario, data });
+      resolve({ id: this.lastID, descricao, valor, categoria, loja, usuario, data, caixaId });
     });
   });
 };
+
 
 const listarDespesas = () => {
   return new Promise((resolve, reject) => {
@@ -22,6 +23,17 @@ const listarDespesas = () => {
     });
   });
 };
+
+const listarDespesasPorCaixaId = (caixaId) => {
+  return new Promise((resolve, reject) => {
+    const query = 'SELECT * FROM despesas WHERE caixaId = ? ORDER BY id DESC';
+    db.all(query, [caixaId], (err, rows) => {
+      if (err) return reject(err);
+      resolve(rows);
+    });
+  });
+};
+
 
 const marcarDespesaComoFechada = (id) => {
   return new Promise((resolve, reject) => {
@@ -37,5 +49,6 @@ const marcarDespesaComoFechada = (id) => {
 export default {
   criarDespesa,
   marcarDespesaComoFechada,
-  listarDespesas
+  listarDespesas,
+  listarDespesasPorCaixaId
 };

@@ -1,18 +1,22 @@
 import despesaRepository from '../repositories/despesaRepository.js';
 
 const criarDespesa = async (dados) => {
-  const { descricao, valor, categoria, loja, usuario, data } = dados;
+  const { descricao, valor, categoria, loja, usuario, data, caixaId } = dados;
 
-  if (!descricao || !valor || !categoria || !loja || !usuario || !data) {
+  if (!descricao || !valor || !categoria || !loja || !usuario || !data || !caixaId) {
     throw new Error('Todos os campos são obrigatórios');
   }
 
-  return despesaRepository.criarDespesa({ descricao, valor, categoria, loja, usuario, data });
+  return despesaRepository.criarDespesa({ descricao, valor, categoria, loja, usuario, data, caixaId });
 };
 
-const listarDespesas = async () => {
+const listarDespesas = async (caixaId = null) => {
+  if (caixaId) {
+    return despesaRepository.listarDespesasPorCaixaId(caixaId);
+  }
   return despesaRepository.listarDespesas();
 };
+
 
 const fecharTodasDespesas = async () => {
   const despesas = await despesaRepository.listarDespesas();

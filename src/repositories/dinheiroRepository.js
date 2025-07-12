@@ -1,22 +1,32 @@
 // src/repositories/despesaRepository.js
 import { db } from '../database/sqlite.js';
 
-const criarDinheiro = ({ valor, usuario, data }) => {
+const criarDinheiro = ({ valor, usuario, data, caixaId }) => {
   return new Promise((resolve, reject) => {
     const sql = `
-      INSERT INTO dinheiro (valor, usuario, data)
-      VALUES (?, ?, ?)
+      INSERT INTO dinheiro (valor, usuario, data, caixaId)
+      VALUES (?, ?, ?, ?)
     `;
-    db.run(sql, [valor, usuario, data], function (err) {
+    db.run(sql, [valor, usuario, data, caixaId], function (err) {
       if (err) return reject(err);
-      resolve({ id: this.lastID, valor, usuario, data });
+      resolve({ id: this.lastID, valor, usuario, data, caixaId });
     });
   });
 };
 
-const listarDinheiro = () => {
+const listarDinheiro = (caixaId = null) => {
   return new Promise((resolve, reject) => {
-    db.all('SELECT * FROM dinheiro ORDER BY id DESC', [], (err, rows) => {
+    let sql = 'SELECT * FROM dinheiro';
+    const params = [];
+
+    if (caixaId) {
+      sql += ' WHERE caixaId = ?';
+      params.push(caixaId);
+    }
+
+    sql += ' ORDER BY id DESC';
+
+    db.all(sql, params, (err, rows) => {
       if (err) return reject(err);
       resolve(rows);
     });
