@@ -5,7 +5,7 @@ const criarMaquina = (maquina) => {
     loja,
     numeroMaquina,
     jogo,
-    valorJogo,
+    valor,
     maquineiro,
     setor,
     inicial,
@@ -15,7 +15,7 @@ const criarMaquina = (maquina) => {
   return new Promise((resolve, reject) => {
     const sql = `
       INSERT INTO maquinas
-      (loja, numeroMaquina, jogo, valorJogo, maquineiro, setor, inicial, final)
+      (loja, numeroMaquina, jogo, valor, maquineiro, setor, inicial, final)
       VALUES (?,?,?,?,?,?,?,?)
     `;
     db.run(
@@ -24,7 +24,7 @@ const criarMaquina = (maquina) => {
         loja,
         numeroMaquina,
         jogo,
-        valorJogo,
+        valor,
         maquineiro,
         setor,
         inicial,
