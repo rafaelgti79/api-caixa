@@ -18,6 +18,18 @@ const atualizarMaquina = async (id, campos) => {
   return await maquinasRepository.atualizarMaquina(id, campos);
 };
 
+const editarMaquina = async (id, campos) => {
+  // Aqui você pode adicionar validações adicionais se quiser
+  return await maquinasRepository.editarMaquina(id, campos);
+};
+
+const buscarPorId = async (id) => {
+  return await maquinasRepository.buscarPorId(id);
+};
+
+const excluirMaquina = async (id) => {
+  return await maquinasRepository.excluirMaquina(id);
+};
 
 
-export default { criarMaquina, listarMaquinas,atualizarMaquina };
+export default { criarMaquina, listarMaquinas,atualizarMaquina, editarMaquina, buscarPorId, excluirMaquina };

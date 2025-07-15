@@ -12,7 +12,13 @@ const listarJogos = async () => {
   return await jogosRepository.listarJogos();
 };
 
+const deletarJogo = async (id) => {
+  if (!id) throw new Error("ID do jogo é obrigatório");
+  return await jogosRepository.deletarJogo(id);
+};
+
 export default {
   criarJogo,
   listarJogos,
+  deletarJogo
 };

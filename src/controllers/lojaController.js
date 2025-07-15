@@ -19,7 +19,18 @@ const listarLojas = async (req, res) => {
   }
 };
 
+const deletarLoja = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const resultado = await lojaService.deletarLoja(id);
+    res.status(200).json(resultado);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 export default {
   criarLoja,
   listarLojas,
+  deletarLoja
 };

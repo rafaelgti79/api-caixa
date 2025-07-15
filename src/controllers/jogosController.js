@@ -19,7 +19,18 @@ const listarJogos = async (req, res) => {
   }
 };
 
+const deletarJogo = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const resultado = await jogosService.deletarJogo(id);
+    res.status(200).json(resultado);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 export default {
   criarJogo,
   listarJogos,
+  deletarJogo
 };

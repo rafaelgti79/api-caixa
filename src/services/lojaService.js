@@ -10,7 +10,13 @@ const listarLojas = async () => {
   return await lojaRepository.listarLojas();
 };
 
+const deletarLoja = async (id) => {
+  if (!id) throw new Error("ID da loja é obrigatório");
+  return await lojaRepository.deletarLoja(id);
+};
+
 export default {
   criarLoja,
   listarLojas,
+  deletarLoja
 };

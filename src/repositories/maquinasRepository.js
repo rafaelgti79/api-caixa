@@ -76,5 +76,45 @@ const atualizarMaquina = (id, campos) => {
   });
 };
 
+const editarMaquina = (id, campos) => {
+  return new Promise((resolve, reject) => {
+    const fields = [];
+    const values = [];
 
-export default { criarMaquina, listarMaquinas, atualizarMaquina };
+    for (const [key, value] of Object.entries(campos)) {
+      fields.push(`${key} = ?`);
+      values.push(value);
+    }
+
+    values.push(id);
+
+    const sql = `UPDATE maquinas SET ${fields.join(', ')} WHERE id = ?`;
+
+    db.run(sql, values, function (err) {
+      err ? reject(err) : resolve({ id, ...campos });
+    });
+  });
+};
+
+const buscarPorId = (id) => {
+  return new Promise((resolve, reject) => {
+    const sql = "SELECT * FROM maquinas WHERE id = ?";
+    db.get(sql, [id], (err, row) => {
+      if (err) reject(err);
+      else resolve(row);
+    });
+  });
+};
+
+const excluirMaquina = (id) => {
+  return new Promise((resolve, reject) => {
+    const sql = `DELETE FROM maquinas WHERE id = ?`;
+    db.run(sql, [id], function (err) {
+      err ? reject(err) : resolve({ id });
+    });
+  });
+};
+
+
+
+export default { criarMaquina, listarMaquinas, atualizarMaquina, editarMaquina, buscarPorId, excluirMaquina };

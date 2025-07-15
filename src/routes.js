@@ -36,15 +36,22 @@ router.patch('/cartao/:id', cartaoController.marcarComoFechado);
 //Lojas
 router.post("/lojas", lojaController.criarLoja);
 router.get("/lojas", lojaController.listarLojas);
+router.delete("/lojas/:id", lojaController.deletarLoja);
+
 
 //Jogo
 router.post("/jogos", jogosController.criarJogo);
 router.get("/jogos", jogosController.listarJogos);
+router.delete("/jogos/:id", jogosController.deletarJogo);
+
 
 //Maquinas
 router.post("/maquinas", maquinasController.criarMaquina);
 router.get("/maquinas", maquinasController.listarMaquinas);
 router.put("/maquinas/:id", maquinasController.atualizarMaquina);
+router.put("/maquinas/editar/:id", maquinasController.editarMaquina);
+router.get("/maquinas/:id", maquinasController.buscarMaquinaPorId);
+router.delete("/maquinas/:id", maquinasController.excluirMaquina);
 
 
 

@@ -20,7 +20,19 @@ const listarJogos = () => {
   });
 };
 
+const deletarJogo = (id) => {
+  return new Promise((resolve, reject) => {
+    const sql = "DELETE FROM jogos WHERE id = ?";
+    db.run(sql, [id], function (err) {
+      if (err) reject(err);
+      else if (this.changes === 0) reject(new Error("Jogo não encontrado"));
+      else resolve({ message: "Jogo deletado com sucesso" });
+    });
+  });
+};
+
 export default {
   criarJogo,
   listarJogos,
+  deletarJogo
 };

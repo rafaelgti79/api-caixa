@@ -18,7 +18,19 @@ const listarLojas = () => {
   });
 };
 
+const deletarLoja = (id) => {
+  return new Promise((resolve, reject) => {
+    const sql = "DELETE FROM lojas WHERE id = ?";
+    db.run(sql, [id], function (err) {
+      if (err) reject(err);
+      else if (this.changes === 0) reject(new Error("Loja não encontrada"));
+      else resolve({ message: "Loja deletada com sucesso" });
+    });
+  });
+};
+
 export default {
   criarLoja,
   listarLojas,
+  deletarLoja
 };
