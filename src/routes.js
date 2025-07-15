@@ -54,6 +54,11 @@ router.get('/caixa', caixaController.listarCaixas);
 router.get('/caixa/status', caixaController.verificarStatusCaixa);
 router.patch('/caixa/:id', caixaController.atualizarCaixa);
 router.put('/caixa/:id', caixaController.atualizarCaixa);
+// No arquivo router.js
+router.get('/caixa/aberto', caixaController.verificarCaixaAbertoPorLoja);
+
+
+
 // Historico Caixa
 router.get('/historicocaixa', historicoCaixaController.listarHistorico);
 router.post('/historicocaixa', historicoCaixaController.salvarHistorico);

@@ -53,11 +53,21 @@ const atualizarCaixa = (id, dados) => {
   });
 };
 
-
+// Função para verificar se já existe um caixa aberto para uma loja específica
+const verificarCaixaAbertoPorLoja = (loja) => {
+  return new Promise((resolve, reject) => {
+    const sql = `SELECT * FROM caixa WHERE loja = ? AND status = 'aberto' ORDER BY id DESC LIMIT 1`;
+    db.get(sql, [loja], (err, row) => {
+      if (err) return reject(err);
+      resolve(row); // Retorna o caixa aberto ou null se não houver
+    });
+  });
+};
 
 export default {
   criarCaixa,
   getAllCaixas,
   obterStatusCaixaAtual,
-  atualizarCaixa
+  atualizarCaixa,
+  verificarCaixaAbertoPorLoja
 };

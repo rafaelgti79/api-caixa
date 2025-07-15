@@ -6,8 +6,8 @@ const abrirCaixa = async (req, res) => {
     const novaAbertura = await caixaService.abrirCaixa(dados);
     res.status(201).json(novaAbertura);
   } catch (err) {
-    console.error('Erro abrir caixa:', err);
-    res.status(400).json({ error: err.message });
+    console.error('Erro ao abrir caixa:', err);
+    res.status(400).json({ error: err.message }); // Agora retorna o erro caso já haja um caixa aberto
   }
 };
 
@@ -45,10 +45,26 @@ const atualizarCaixa = async (req, res) => {
   }
 };
 
+const verificarCaixaAbertoPorLoja = async (req, res) => {
+  const { loja } = req.query;  // Aqui você pega o parâmetro da query string (loja)
+  try {
+    const caixaAberto = await caixaService.verificarCaixaAbertoPorLoja(loja);
+    if (caixaAberto) {
+      return res.json({ status: 'aberto', caixa: caixaAberto });
+    } else {
+      return res.json({ status: 'fechado' });
+    }
+  } catch (err) {
+    console.error('Erro ao verificar caixa aberto:', err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
 
 export default {
   abrirCaixa,
   listarCaixas,
   verificarStatusCaixa,
-  atualizarCaixa
+  atualizarCaixa,
+  verificarCaixaAbertoPorLoja
 };
