@@ -27,11 +27,9 @@ const registrarFechamento = async (data) => {
   }
 
   if (existente.fechado === 0) {
-    return fechamentoRepository.atualizarFechamento(existente.id, {
-      ...existente,
-      ...data
-    });
-  }
+  return fechamentoRepository.atualizarFechamento(existente.id, data);
+}
+
 
   return fechamentoRepository.salvarFechamento(data);
 };

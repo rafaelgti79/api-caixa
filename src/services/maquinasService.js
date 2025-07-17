@@ -15,8 +15,22 @@ const listarMaquinas = async (fechada) => {
 };
 
 const atualizarMaquina = async (id, campos) => {
-  return await maquinasRepository.atualizarMaquina(id, campos);
+  const camposValidos = {};
+
+  if (campos.inicial !== undefined && !isNaN(parseFloat(campos.inicial))) {
+    camposValidos.inicial = parseFloat(campos.inicial);
+  }
+  if (campos.final !== undefined && !isNaN(parseFloat(campos.final))) {
+    camposValidos.final = parseFloat(campos.final);
+  }
+
+  if (Object.keys(camposValidos).length === 0) {
+    throw new Error('Nenhum campo válido para atualizar.');
+  }
+
+  return await maquinasRepository.atualizarMaquina(id, camposValidos);
 };
+
 
 const editarMaquina = async (id, campos) => {
   // Aqui você pode adicionar validações adicionais se quiser
